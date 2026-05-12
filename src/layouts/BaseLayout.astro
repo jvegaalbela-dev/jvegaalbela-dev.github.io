@@ -30,7 +30,7 @@ const fullTitle = title.includes("jva.dev") || title.includes("JVA/dev")
   ? title
   : `${title} · jva.dev`;
 
-const siteOrigin = Astro.site ?? new URL("https://jvegaalbela-dev.github.io");
+const siteOrigin = Astro.site ?? new URL("https://jva-dev.com");
 const canonical = new URL(Astro.url.pathname, siteOrigin).href;
 const ogImageUrl = new URL(ogImage, siteOrigin).href;
 

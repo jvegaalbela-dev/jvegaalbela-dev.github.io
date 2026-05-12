@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://jvegaalbela-dev.github.io',
+  site: 'https://jva-dev.com',
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],

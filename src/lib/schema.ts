@@ -7,7 +7,7 @@
 
 import type { Tier } from "../data/pricing";
 
-export const SITE_URL = "https://jvegaalbela-dev.github.io";
+export const SITE_URL = "https://jva-dev.com";
 
 const BUSINESS_ID = `${SITE_URL}/#business`;
 const PERSON_ID = `${SITE_URL}/#person`;
