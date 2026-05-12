@@ -1,0 +1,28 @@
+---
+import { GA_MEASUREMENT_ID, ANALYTICS_ENABLED } from "../lib/config";
+
+// Only render in production AND when a measurement ID has been set.
+// Local dev pageviews never reach GA, keeping reporting clean.
+const shouldRender =
+  ANALYTICS_ENABLED &&
+  GA_MEASUREMENT_ID.length > 0 &&
+  import.meta.env.PROD;
+---
+
+{shouldRender && (
+  <Fragment>
+    <script
+      is:inline
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+    />
+    <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
+    </script>
+  </Fragment>
+)}

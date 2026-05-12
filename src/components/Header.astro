@@ -1,0 +1,162 @@
+---
+const links = [
+  { href: "/services", label: "Services" },
+  { href: "/work", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
+const pathname = Astro.url.pathname;
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
+---
+
+<header class="sticky top-0 z-40 border-b border-stone-200/70 bg-cream/90 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+    <a
+      href="/"
+      class="font-serif text-lg font-semibold tracking-tight hover:opacity-80 transition"
+    >
+      jva<span class="text-accent">.dev</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 text-sm text-stone-600">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class:list={[
+            "hover:text-stone-900 transition",
+            isActive(l.href) && "text-stone-900 font-medium",
+          ]}
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href="/contact"
+        class="inline-flex items-center bg-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-accent-dark transition"
+      >
+        Start a project
+      </a>
+    </nav>
+
+    <button
+      id="mobile-menu-button"
+      type="button"
+      class="md:hidden inline-flex items-center justify-center w-10 h-10 text-stone-700 hover:text-stone-900 transition"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg
+        class="mobile-menu-open"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+      <svg
+        class="mobile-menu-close hidden"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <line x1="6" y1="6" x2="18" y2="18" />
+        <line x1="18" y1="6" x2="6" y2="18" />
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden border-t border-stone-200 bg-cream"
+  >
+    <nav class="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class:list={[
+            "py-3 px-3 text-base text-stone-700 hover:text-stone-900 hover:bg-stone-100/60 rounded transition",
+            isActive(l.href) && "text-stone-900 font-medium bg-stone-100/40",
+          ]}
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href="/contact"
+        class="mt-3 inline-flex justify-center items-center bg-accent text-white px-4 py-3 rounded-md text-base font-medium hover:bg-accent-dark transition"
+      >
+        Start a project
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const button = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+  const iconOpen = button?.querySelector(".mobile-menu-open");
+  const iconClose = button?.querySelector(".mobile-menu-close");
+
+  if (button && menu && iconOpen && iconClose) {
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle("hidden", !open);
+      iconOpen.classList.toggle("hidden", open);
+      iconClose.classList.toggle("hidden", !open);
+      button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+
+    button.addEventListener("click", () => {
+      const isOpen = !menu.classList.contains("hidden");
+      setOpen(!isOpen);
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menu.classList.contains("hidden")) {
+        setOpen(false);
+        button.focus();
+      }
+    });
+
+    // Close when tapping outside the menu/button (e.g. on page content)
+    document.addEventListener("click", (e) => {
+      const target = e.target as Node;
+      if (
+        !menu.classList.contains("hidden") &&
+        !menu.contains(target) &&
+        !button.contains(target)
+      ) {
+        setOpen(false);
+      }
+    });
+
+    // Close when a link is tapped (feels responsive, especially on same-page anchors)
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => setOpen(false));
+    });
+
+    // Reset to closed if viewport grows past mobile breakpoint
+    const mql = window.matchMedia("(min-width: 768px)");
+    mql.addEventListener("change", (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

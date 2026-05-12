@@ -1,0 +1,19 @@
+---
+import { sale } from "../data/pricing";
+---
+
+{sale.active && (
+  <div class="bg-accent text-white text-sm">
+    <div class="max-w-6xl mx-auto px-6 py-2.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center">
+      <span class="font-semibold tracking-tight">{sale.label}</span>
+      <span class="opacity-60">·</span>
+      <span class="opacity-90">{sale.shortBlurb}</span>
+      <a
+        href="/services"
+        class="underline underline-offset-4 opacity-90 hover:opacity-100 font-medium"
+      >
+        See what's included →
+      </a>
+    </div>
+  </div>
+)}

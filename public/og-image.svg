@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Cream background -->
+  <rect width="1200" height="630" fill="#FAF6EE"/>
+
+  <!-- Eyebrow: location + service -->
+  <text x="80" y="110"
+        font-family="Georgia, 'Times New Roman', Cambria, serif"
+        font-size="22" font-weight="400" fill="#78716C"
+        letter-spacing="4">
+    WEB DESIGN  ·  SOUTH WEDGE, ROCHESTER, NY
+  </text>
+
+  <!-- Headline, three lines, accent on the italic middle line -->
+  <text x="80" y="260"
+        font-family="Georgia, 'Times New Roman', Cambria, serif"
+        font-size="100" font-weight="500" fill="#1C1917">A website that</text>
+  <text x="80" y="375"
+        font-family="Georgia, 'Times New Roman', Cambria, serif"
+        font-size="100" font-weight="500" font-style="italic"
+        fill="#234E70">actually works</text>
+  <text x="80" y="490"
+        font-family="Georgia, 'Times New Roman', Cambria, serif"
+        font-size="100" font-weight="500" fill="#1C1917">for your business.</text>
+
+  <!-- Wordmark, bottom-right -->
+  <text x="1120" y="582"
+        font-family="Georgia, 'Times New Roman', Cambria, serif"
+        font-size="48" font-weight="600" fill="#1C1917"
+        text-anchor="end">jva<tspan fill="#234E70">.dev</tspan></text>
+</svg>

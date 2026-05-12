@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { personSchema, breadcrumbSchema } from "../lib/schema";
+
+const schemas = [
+  breadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about/" },
+  ]),
+  personSchema(),
+];
+---
+
+<BaseLayout
+  title="About"
+  description="About Jacobo Vega-Albela: self-taught Rochester web designer in South Wedge, building fast, custom websites for small businesses."
+  additionalSchema={schemas}
+>
+  <section class="max-w-3xl mx-auto px-6 pt-20 pb-24">
+    <p class="text-xs uppercase tracking-[0.18em] text-stone-500 mb-6">About · South Wedge, Rochester</p>
+    <h1
+      class="font-serif text-5xl md:text-6xl font-medium tracking-tight leading-[1.05]"
+    >
+      I build the kind of website I wish I'd had.
+    </h1>
+
+    <div class="mt-10 space-y-6 text-lg text-stone-700 leading-relaxed">
+      <p>
+        A few years back, I was a small business owner with a Squarespace site, watching ugly competitor websites outrank me on Google.
+      </p>
+      <p>
+        I spent hours every week fussing with that site: tuning copy, swapping images, adding sections, removing sections. None of it made a difference. Every design decision came with a hidden cost: more bloat, slower pages, worse SEO. I was making thoughtful, user-minded choices for an algorithm that wasn't reading them.
+      </p>
+      <p class="font-serif text-2xl italic text-stone-900">So I learned to do it properly.</p>
+      <p>
+        I taught myself Astro. It's a lightweight, open-source framework for building fast, modern websites without giving up control of your code or your hosting account. A site that loads instantly and looks the part is the ground floor; everything else builds on top.
+      </p>
+      <p>
+        Then I taught myself SEO, because what's the point of a beautiful site if no one finds it. I read everything I could on how search engines understand a page: what they reward, what they punish, what they ignore. I rebuilt my own site, watched it climb the rankings, and realized this was actually solvable.
+      </p>
+      <p>
+        I didn't learn web design in a university. I learned it the way a lot of small business owners learn things: by running into a problem until I couldn't stand it anymore, then figuring out how to fix it. That's the perspective I bring to every build.
+      </p>
+      <p>
+        You're not paying for credentials. You're paying for someone who's been on your side of this — and now has the tools to solve it.
+      </p>
+    </div>
+
+    <h2 class="font-serif text-3xl font-medium tracking-tight mt-20">
+      Why work with me
+    </h2>
+    <ul class="mt-8 space-y-5 text-stone-700">
+      <li class="flex gap-3">
+        <span class="text-accent mt-1.5">·</span>
+        <span>
+          <strong class="text-stone-900">Flat-price contracts.</strong>
+          No hourly clock-watching. You know the cost upfront, in writing, before any work starts.
+        </span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-accent mt-1.5">·</span>
+        <span>
+          <strong class="text-stone-900">You own everything.</strong>
+          Code, content, and hosting account. All yours. No platform lock-in, no being held hostage.
+        </span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-accent mt-1.5">·</span>
+        <span>
+          <strong class="text-stone-900">Direct line.</strong>
+          You work with me, not a project manager or account exec. No agency overhead, no telephone game.
+        </span>
+      </li>
+      <li class="flex gap-3">
+        <span class="text-accent mt-1.5">·</span>
+        <span>
+          <strong class="text-stone-900">Built to last.</strong>
+          Static sites have fewer moving parts. Less to break, less to maintain, easier to hand off if our paths ever part.
+        </span>
+      </li>
+    </ul>
+
+    <div class="mt-20 border-t border-stone-200 pt-10">
+      <p class="text-stone-700">
+        Want to chat?
+        <a href="/contact" class="text-accent font-medium hover:underline">
+          Drop me a line
+        </a>
+        , or email
+        <a
+          href="mailto:jvegaalbela.dev@gmail.com"
+          class="text-accent font-medium hover:underline"
+        >
+          jvegaalbela.dev@gmail.com
+        </a>
+        directly.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

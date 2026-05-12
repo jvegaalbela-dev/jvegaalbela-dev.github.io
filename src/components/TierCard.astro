@@ -1,0 +1,78 @@
+---
+import { sale, salePrice, type Tier } from "../data/pricing";
+
+interface Props {
+  tier: Tier;
+  variant?: "compact" | "detailed";
+}
+
+const { tier, variant = "compact" } = Astro.props;
+const { low, high } = salePrice(tier.fullLow, tier.fullHigh);
+const showSale = sale.active;
+const fmt = (n: number) => `$${n.toLocaleString()}`;
+const previewIncludes = tier.includes.slice(0, 4);
+const remaining = tier.includes.length - previewIncludes.length;
+---
+
+<article
+  class:list={[
+    "relative rounded-lg p-7 bg-white transition hover:-translate-y-0.5 hover:shadow-md",
+    tier.featured ? "ring-2 ring-accent shadow-sm" : "ring-1 ring-stone-200",
+  ]}
+>
+  {tier.featured && (
+    <p class="absolute -top-3 left-7 bg-accent text-white text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-md font-semibold">
+      Most popular
+    </p>
+  )}
+
+  <p class="font-serif text-3xl italic text-stone-400">{tier.num}</p>
+  <h3 class="mt-3 font-serif text-2xl font-medium">{tier.name}</h3>
+
+  <div class="mt-3">
+    {showSale ? (
+      <>
+        <p class="text-accent font-serif text-2xl font-semibold">
+          {fmt(low)}–{fmt(high)}
+        </p>
+        <p class="mt-1 text-sm text-stone-500">
+          <span class="line-through">
+            {fmt(tier.fullLow)}–{fmt(tier.fullHigh)}
+          </span>
+          <span class="ml-2 text-accent font-medium">
+            save up to {fmt(tier.fullHigh - high)}
+          </span>
+        </p>
+      </>
+    ) : (
+      <p class="font-serif text-2xl font-semibold">
+        {fmt(tier.fullLow)}–{fmt(tier.fullHigh)}
+      </p>
+    )}
+  </div>
+
+  <p class="mt-5 text-sm text-stone-700 leading-relaxed">{tier.blurb}</p>
+
+  {variant === "compact" ? (
+    <ul class="mt-5 space-y-2 text-sm text-stone-700">
+      {previewIncludes.map((item) => (
+        <li class="flex gap-2">
+          <span class="text-accent mt-0.5">✓</span>
+          <span>{item}</span>
+        </li>
+      ))}
+      {remaining > 0 && (
+        <li class="text-stone-500 italic pl-5">+ {remaining} more</li>
+      )}
+    </ul>
+  ) : (
+    <ul class="mt-5 space-y-2.5 text-sm text-stone-700">
+      {tier.includes.map((item) => (
+        <li class="flex gap-2">
+          <span class="text-accent mt-0.5">✓</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  )}
+</article>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 624" width="1640" height="624">
+  <rect width="1640" height="624" fill="#FAF6EE"/>
+
+  <!--
+    Wide-canvas version of the favicon. Two horizontal color bands
+    representing "jva" (dark, narrower) and ".dev" (navy, slightly wider),
+    same proportional relationship as the 64×64 favicon.
+
+    Bands extend well past the profile-picture overlay zone on both
+    desktop and mobile, so the brand mark reads as a continuous wordmark
+    flanking the pfp rather than something being obstructed.
+  -->
+
+  <!-- Dark band — "jva" -->
+  <rect x="120" y="200" width="1400" height="100" rx="18" fill="#1C1917"/>
+
+  <!-- Navy band — ".dev", slightly wider -->
+  <rect x="60" y="340" width="1520" height="100" rx="18" fill="#234E70"/>
+</svg>
