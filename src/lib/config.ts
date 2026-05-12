@@ -16,7 +16,7 @@
  * Leave empty to disable analytics entirely.
  * Analytics only fires in production builds — local dev never hits GA.
  */
-export const GA_MEASUREMENT_ID = "";
+export const GA_MEASUREMENT_ID = "G-RYJ6TXDW8D";
 
 /**
  * Master switch for analytics. Set to false to disable even if a GA ID is set.

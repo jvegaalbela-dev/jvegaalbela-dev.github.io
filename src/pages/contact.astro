@@ -215,4 +215,18 @@ const schemas = [
     formElement: "#contact-form",
     formId: "xgodrblw",
   });
+
+  // Send a GA4 `generate_lead` event when the contact form is submitted.
+  // Fires after HTML5 validation passes (so empty / invalid clicks don't count),
+  // and is gated on `window.gtag` so it's a no-op in dev or when GA is disabled.
+  const form = document.getElementById("contact-form");
+  form?.addEventListener("submit", () => {
+    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+    if (typeof gtag === "function") {
+      gtag("event", "generate_lead", {
+        form_id: "contact-form",
+        form_destination: "formspree",
+      });
+    }
+  });
 </script>
