@@ -15,6 +15,9 @@ html {
   text-rendering: optimizeLegibility;
   /* Sticky header offset so anchor links land below the header instead of behind it */
   scroll-padding-top: 5rem;
+  /* Safety net: prevent horizontal page scroll without breaking sticky positioning
+     (which `overflow: hidden` would). `clip` is supported in all modern browsers. */
+  overflow-x: clip;
 }
 
 body {
@@ -103,6 +106,10 @@ details > summary { list-style: none; }
   padding: 0.85em 1em;
   border-bottom: 1px solid var(--color-stone-200);
   vertical-align: top;
+  /* Allow long unbreakable strings (URLs, domain names) to wrap on narrow viewports
+     instead of forcing the table wider than the screen. */
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 .prose tbody tr:last-child td {
   border-bottom: none;
