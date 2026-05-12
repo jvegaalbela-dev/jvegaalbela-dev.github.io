@@ -6,6 +6,12 @@ import SaleBanner from "../components/SaleBanner.astro";
 import Analytics from "../components/Analytics.astro";
 import { businessSchema, websiteSchema } from "../lib/schema";
 
+// Resolve the critical font files to hashed asset URLs so we can preload them.
+// Vite's `?url` import gives us the build-output URL, which changes on every
+// build — preload markup stays correct without manual editing.
+import interFont from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import frauncesFont from "@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2?url";
+
 interface Props {
   title: string;
   description?: string;
@@ -74,8 +80,13 @@ const safeJson = (obj: object) =>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{fullTitle}</title>
 
-    {/* Fonts are self-hosted via Fontsource and bundled into the site's own
-        CSS. No render-blocking round-trip to fonts.googleapis.com on load. */}
+    {/* Self-hosted fonts via Fontsource. Preload the critical Latin subsets
+        so the browser fetches them in parallel with the HTML parse, instead
+        of waiting for the CSS to be parsed first (which delays text LCP).
+        `crossorigin` is required even for same-origin font preloads, or the
+        browser won't reuse the preloaded resource for the @font-face request. */}
+    <link rel="preload" href={interFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={frauncesFont} as="font" type="font/woff2" crossorigin />
 
     {allSchemas.map((schema) => (
       <script type="application/ld+json" set:html={safeJson(schema)} />
