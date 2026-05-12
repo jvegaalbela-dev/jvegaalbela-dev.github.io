@@ -11,6 +11,7 @@ import { businessSchema, websiteSchema } from "../lib/schema";
 // build — preload markup stays correct without manual editing.
 import interFont from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import frauncesFont from "@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2?url";
+import frauncesItalicFont from "@fontsource-variable/fraunces/files/fraunces-latin-wght-italic.woff2?url";
 
 interface Props {
   title: string;
@@ -87,6 +88,7 @@ const safeJson = (obj: object) =>
         browser won't reuse the preloaded resource for the @font-face request. */}
     <link rel="preload" href={interFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={frauncesFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={frauncesItalicFont} as="font" type="font/woff2" crossorigin />
 
     {allSchemas.map((schema) => (
       <script type="application/ld+json" set:html={safeJson(schema)} />

@@ -10,19 +10,43 @@ const shouldRender =
 ---
 
 {shouldRender && (
-  <Fragment>
-    <script
-      is:inline
-      async
-      src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-    />
-    <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+  <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+    (function () {
+      // Defer GA4 initialization until the user interacts with the page
+      // (scroll, click, keypress, or touch) or after a 5s safety timer.
+      // This keeps the ~80kB gtag.js script out of the initial-load critical
+      // path, which improves LCP, FCP, and TBT — at the cost of slightly
+      // undercounting instant-bounce visitors (those who close the tab in
+      // under 5 seconds with no interaction). For a small-business services
+      // site that's the right trade.
+
+      let started = false;
+
+      function init() {
+        if (started) return;
+        started = true;
+
+        // Initialize the gtag stub immediately so any events fired before
+        // the real script loads (e.g., a fast contact-form submit) get
+        // queued in dataLayer rather than dropped.
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag("js", new Date());
+        window.gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
+
+        // Then async-load the real gtag.js.
+        var script = document.createElement("script");
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID;
+        document.head.appendChild(script);
       }
-      gtag("js", new Date());
-      gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
-    </script>
-  </Fragment>
+
+      ["scroll", "click", "keydown", "touchstart"].forEach(function (evt) {
+        document.addEventListener(evt, init, { once: true, passive: true });
+      });
+
+      // Safety net: bounce visitors still get tracked.
+      setTimeout(init, 5000);
+    })();
+  </script>
 )}
