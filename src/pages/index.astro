@@ -70,7 +70,7 @@ const workItems = (await getCollection("work", ({ data }) => !data.draft))
         </p>
         <div>
           <p class="font-semibold text-stone-900 mb-2">
-            Founding client pricing — {sale.remainingSlots} spots only.
+            Founding client pricing. Only {sale.remainingSlots} spots.
           </p>
           <p class="text-stone-700 leading-relaxed max-w-2xl">
             {sale.longBlurb}
@@ -113,15 +113,14 @@ const workItems = (await getCollection("work", ({ data }) => !data.draft))
       {workItems.length === 0 ? (
         <>
           <p class="text-stone-600 max-w-xl mb-12 leading-relaxed">
-            Case studies coming soon — JVA/dev is new, and the work is in the pipeline.
+            Case studies coming soon. JVA/dev is new, and the work is in the pipeline.
           </p>
           <div class="border border-dashed border-stone-300 rounded-lg p-10 bg-white/40 max-w-2xl">
             <p class="text-stone-700">
               Want your project featured here?
               <a href="/contact" class="text-accent font-medium hover:underline">
                 Get in touch
-              </a>
-              — there are {sale.remainingSlots} founding-client spots left.
+              </a>. There are {sale.remainingSlots} founding-client spots left.
             </p>
           </div>
         </>
