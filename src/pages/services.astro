@@ -47,6 +47,7 @@ const schemas = [
     const sp = salePrice(t.fullLow, t.fullHigh);
     return (
       <section
+        id={`tier-${t.id}`}
         class:list={[
           "border-t border-stone-200/80",
           i % 2 === 1 && "bg-cream-2/40",
