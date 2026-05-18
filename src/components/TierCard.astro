@@ -11,50 +11,54 @@ const { low, high } = salePrice(tier.fullLow, tier.fullHigh);
 const showSale = sale.active;
 const fmt = (n: number) => `$${n.toLocaleString()}`;
 const previewIncludes = tier.includes.slice(0, 4);
-const remaining = tier.includes.length - previewIncludes.length;
 ---
 
-<article
-  class:list={[
-    "relative rounded-lg p-7 bg-white transition hover:-translate-y-0.5 hover:shadow-md",
-    tier.featured ? "ring-2 ring-accent shadow-sm" : "ring-1 ring-stone-200",
-  ]}
->
-  {tier.featured && (
-    <p class="absolute -top-3 left-7 bg-accent text-white text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-md font-semibold">
-      Most popular
-    </p>
-  )}
-
-  <p class="font-serif text-3xl italic text-stone-400">{tier.num}</p>
-  <h3 class="mt-3 font-serif text-2xl font-medium">{tier.name}</h3>
-
-  <div class="mt-3">
-    {showSale ? (
-      <>
-        <p class="text-accent font-serif text-2xl font-semibold">
-          {fmt(low)}–{fmt(high)}
+{variant === "compact" ? (
+  <a
+    href={`/services#tier-${tier.id}`}
+    class="block group rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-cream-2"
+  >
+    <article
+      class:list={[
+        "relative rounded-lg p-7 bg-white transition group-hover:-translate-y-0.5 group-hover:shadow-md",
+        tier.featured ? "ring-2 ring-accent shadow-sm" : "ring-1 ring-stone-200",
+      ]}
+    >
+      {tier.featured && (
+        <p class="absolute -top-3 left-7 bg-accent text-white text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-md font-semibold">
+          Most popular
         </p>
-        <p class="mt-1 text-sm text-stone-500">
-          <span class="line-through">
+      )}
+
+      <p class="font-serif text-3xl italic text-stone-400">{tier.num}</p>
+      <h3 class="mt-3 font-serif text-2xl font-medium group-hover:text-accent transition">
+        {tier.name}
+      </h3>
+
+      <div class="mt-3">
+        {showSale ? (
+          <>
+            <p class="text-accent font-serif text-2xl font-semibold">
+              {fmt(low)}–{fmt(high)}
+            </p>
+            <p class="mt-1 text-sm text-stone-500">
+              <span class="line-through">
+                {fmt(tier.fullLow)}–{fmt(tier.fullHigh)}
+              </span>
+              <span class="ml-2 text-accent font-medium">
+                save up to {fmt(tier.fullHigh - high)}
+              </span>
+            </p>
+          </>
+        ) : (
+          <p class="font-serif text-2xl font-semibold">
             {fmt(tier.fullLow)}–{fmt(tier.fullHigh)}
-          </span>
-          <span class="ml-2 text-accent font-medium">
-            save up to {fmt(tier.fullHigh - high)}
-          </span>
-        </p>
-      </>
-    ) : (
-      <p class="font-serif text-2xl font-semibold">
-        {fmt(tier.fullLow)}–{fmt(tier.fullHigh)}
-      </p>
-    )}
-  </div>
+          </p>
+        )}
+      </div>
 
-  <p class="mt-5 text-sm text-stone-700 leading-relaxed">{tier.blurb}</p>
+      <p class="mt-5 text-sm text-stone-700 leading-relaxed">{tier.blurb}</p>
 
-  {variant === "compact" ? (
-    <>
       <ul class="mt-5 space-y-2 text-sm text-stone-700">
         {previewIncludes.map((item) => (
           <li class="flex gap-2">
@@ -63,37 +67,52 @@ const remaining = tier.includes.length - previewIncludes.length;
           </li>
         ))}
       </ul>
-      {remaining > 0 && (
-        <details class="group mt-3">
-          <summary
-            class="list-none [&::-webkit-details-marker]:hidden cursor-pointer pl-5 text-sm text-accent italic hover:underline select-none flex items-center gap-1.5"
-          >
-            <span class="group-open:hidden">+ {remaining} more</span>
-            <span class="hidden group-open:inline">Show less</span>
-            <svg
-              class="w-3 h-3 transition-transform group-open:rotate-180"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              aria-hidden="true"
-            >
-              <path d="M3 5l3 3 3-3" />
-            </svg>
-          </summary>
-          <ul class="mt-2 space-y-2 text-sm text-stone-700">
-            {tier.includes.slice(previewIncludes.length).map((item) => (
-              <li class="flex gap-2">
-                <span class="text-accent mt-0.5">✓</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </details>
+
+      <p class="mt-6 text-sm text-accent italic group-hover:underline">
+        See full {tier.name} breakdown →
+      </p>
+    </article>
+  </a>
+) : (
+  <article
+    class:list={[
+      "relative rounded-lg p-7 bg-white transition hover:-translate-y-0.5 hover:shadow-md",
+      tier.featured ? "ring-2 ring-accent shadow-sm" : "ring-1 ring-stone-200",
+    ]}
+  >
+    {tier.featured && (
+      <p class="absolute -top-3 left-7 bg-accent text-white text-[10px] uppercase tracking-[0.18em] px-2 py-1 rounded-md font-semibold">
+        Most popular
+      </p>
+    )}
+
+    <p class="font-serif text-3xl italic text-stone-400">{tier.num}</p>
+    <h3 class="mt-3 font-serif text-2xl font-medium">{tier.name}</h3>
+
+    <div class="mt-3">
+      {showSale ? (
+        <>
+          <p class="text-accent font-serif text-2xl font-semibold">
+            {fmt(low)}–{fmt(high)}
+          </p>
+          <p class="mt-1 text-sm text-stone-500">
+            <span class="line-through">
+              {fmt(tier.fullLow)}–{fmt(tier.fullHigh)}
+            </span>
+            <span class="ml-2 text-accent font-medium">
+              save up to {fmt(tier.fullHigh - high)}
+            </span>
+          </p>
+        </>
+      ) : (
+        <p class="font-serif text-2xl font-semibold">
+          {fmt(tier.fullLow)}–{fmt(tier.fullHigh)}
+        </p>
       )}
-    </>
-  ) : (
+    </div>
+
+    <p class="mt-5 text-sm text-stone-700 leading-relaxed">{tier.blurb}</p>
+
     <ul class="mt-5 space-y-2.5 text-sm text-stone-700">
       {tier.includes.map((item) => (
         <li class="flex gap-2">
@@ -102,5 +121,5 @@ const remaining = tier.includes.length - previewIncludes.length;
         </li>
       ))}
     </ul>
-  )}
-</article>
+  </article>
+)}
